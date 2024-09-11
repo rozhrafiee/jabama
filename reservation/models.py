@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class Place(models.Model):
     name = models.CharField(max_length=225)
+    owner = models.ForeignKey("owner.Owner", on_delete=models.CASCADE)
     location = models.CharField(max_length=225)
     decription = models.TextField
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
@@ -14,7 +15,7 @@ class Place(models.Model):
         return self.name
     
 class Reservation(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("user.Renter", on_delete=models.CASCADE)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     check_in_time = models.DateField
     check_out_time = models.DateField
